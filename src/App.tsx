@@ -12,17 +12,16 @@ import CurrencyByCountry from './constants';
 type CurrencyCardProp = PropsWithChildren<{
   handleCurrency: Function;
   currency: Currency;
-  index: number;
-  currentIndex: number;
+  selected: boolean;
 }>
 
-const CurrencyCard = ({currency, handleCurrency, index, currentIndex}: CurrencyCardProp): React.JSX.Element => {
+const CurrencyCard = ({currency, handleCurrency, selected}: CurrencyCardProp): React.JSX.Element => {
   return (
     <Pressable
       onPress={() => {
         handleCurrency()
       }}
-      style={[styles.card, index == currentIndex && styles.selectedCard]}
+      style={[styles.card, selected && styles.selectedCard]}
     >
       <Text
         style={[styles.darkColor, {fontWeight: 'bold', textAlign: 'center'}]}>
@@ -68,8 +67,7 @@ const App = (): React.JSX.Element => {
           <CurrencyCard
             key={index}
             currency={currency}
-            index={index}
-            currentIndex={currentIndex}
+            selected={index == currentIndex}
             handleCurrency={() => {
               setCurrentIndex(() => index);
               setCurrentCurrency(() => currency);
